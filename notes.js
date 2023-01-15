@@ -1,4 +1,5 @@
 const fs = require('fs')
+const chalk = require('chalk')
 
 const getNotes = function() {
     console.log("getNotes")
@@ -21,6 +22,21 @@ const addNote = function(title, body) {
     }
 
 }
+const deleteNote = function(title) {
+    const notes = loadNotes()
+    const newNotes = notes.filter(function (note) {
+        return note.title !== title        
+    })
+    
+    if (newNotes.length != notes.length) {
+        saveNotes(newNotes)
+        console.log(chalk.green.inverse('note deleted'))
+    } else {
+        console.log(chalk.red.inverse('note not found'))
+    }
+    
+}
+
 
 const saveNotes = function(notes) {
     const dataJSON = JSON.stringify(notes)
@@ -38,5 +54,6 @@ const loadNotes = function() {
 
 module.exports = {
     getNotes: getNotes,
-    addNote: addNote
+    addNote: addNote,
+    deleteNote: deleteNote
 }

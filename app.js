@@ -5,6 +5,7 @@ console.log("begin")
 
 const getNotesFunc = notes.getNotes
 const addNotesFunc = notes.addNote
+const deleteNoteFunc = notes.deleteNote
 
 yargs.version('1.1.0')
 yargs.command({
@@ -26,4 +27,21 @@ yargs.command({
         addNotesFunc(argv.title, argv.body)
     }
 })
+
+yargs.command({
+    command: 'delete',
+    description: 'delete a note',
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv){
+        console.log('oi')
+        deleteNoteFunc(argv.title)
+    }
+})
+
 yargs.argv
