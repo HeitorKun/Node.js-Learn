@@ -1,9 +1,29 @@
 const fs = require('fs')
 const chalk = require('chalk')
 
-const getNotes = function() {
-    console.log("getNotes")
+const getNotes = () => {
+    const notes = loadNotes()
+    if (notes.length === 0) {
+        console.log(chalk.blue.inverse('there are no notes'))
+        return
+    }
+    notes.forEach(element => {
+        console.log(chalk.blackBright('title: ' + element.title) + chalk.blue(' body: ' + element.body))
+    });
+
     return
+}
+
+const readNote = function readNote(title) {
+    const notes = loadNotes()
+    for (let index = 0; index < notes.length; index++) {
+        const note = notes[index];
+        if (note.title === title) {
+            console.log(chalk.blue(note.body))
+            return
+        }
+    }
+    console.log(chalk.red.inverse('there are no notes with this title'))
 }
 
 const addNote = function(title, body) {
@@ -37,7 +57,6 @@ const deleteNote = function(title) {
     
 }
 
-
 const saveNotes = function(notes) {
     const dataJSON = JSON.stringify(notes)
     fs.writeFileSync('notes.json', dataJSON)
@@ -55,5 +74,6 @@ const loadNotes = function() {
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
-    deleteNote: deleteNote
+    deleteNote: deleteNote,
+    readNote: readNote
 }
