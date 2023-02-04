@@ -17,11 +17,23 @@ async function get() {
     try {
         const data = await got(url).json()
         const temp = data.list[0].weather[0]
-        console.log('the current climate is: '+ temp.description)
+        const res = {result: 'the current climate is: '+ temp.description,
+                    error: undefined
+                    }
+        return res
     } catch (error) {
-        console.log("error code: " + error.code)
+        return {result: undefined,
+                error: error.code
+                }
     }
 }
-get()
 
-console.log('end')
+get().then(({result, error}) => {
+    if (typeof error === 'undefined') {
+    console.log(result)
+    } else {
+        console.log("a problem occurred")
+    }
+})
+
+//console.log('end')
