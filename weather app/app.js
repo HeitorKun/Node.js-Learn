@@ -7,18 +7,21 @@ setTimeout(() => {
 }, 2000);
 */
 
-var lat = '44.33'
-var lon = '10.0'
+const lat = '-23.36'
+const lon = '-46.84'
 var key = '8bd6a33e0af254f2379ae190808ac131'
 
 const url = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon=' + lon + '&appid='+key;
-console.log(url)
-async function get() {
-    const data = await got(url).json()
-    .then(res => console.log(res))
-    
-}
 
+async function get() {
+    try {
+        const data = await got(url).json()
+        const temp = data.list[0].weather[0]
+        console.log('the current climate is: '+ temp.description)
+    } catch (error) {
+        console.log("error code: " + error.code)
+    }
+}
 get()
 
-console.log('jeje')
+console.log('end')
