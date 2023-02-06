@@ -1,6 +1,15 @@
 h1 {
-    color: gray;
+    color: grey;
 }
 img {
-    width: 250px;
+    border-radius: 25px;
+}
+.creator{
+    display: inline-block;
+}
+
+.profileImage {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
 }
